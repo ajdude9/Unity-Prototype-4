@@ -11,19 +11,37 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         enemyRb = GetComponent<Rigidbody>();
-        player = GameObject.Find("Player");
+        player = GameObject.Find("Player");        
     }
 
     // Update is called once per frame
     void Update()
     {
-        enemyMovementController();
+        EnemyMovementController();
+        DestroyOOB();
     }
 
-    void enemyMovementController()
+    void EnemyMovementController()
     {
         Vector3 lookDirection = (player.transform.position - transform.position).normalized;
-        enemyRb.AddForce(lookDirection * speed);
-        
+        enemyRb.AddForce(lookDirection * speed);        
+    }
+
+    bool CheckOOB()
+    {
+        if(transform.position.y < -10)
+        {
+            return true;
+        }        
+        return false;
+    }
+
+    void DestroyOOB()
+    {
+        if(CheckOOB())
+        {
+            Debug.Log("Enemy object destroyed.");
+            Destroy(gameObject);
+        }
     }
 }

@@ -26,8 +26,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         playerMovementController();
-        powerupIndicator.transform.position = new UnityEngine.Vector3(playerRb.transform.position.x, playerRb.transform.position.y + 1.5f, playerRb.transform.position.z);
-        //powerupIndicator.transform.rotation = playerRb.transform.rotation;
+        powerupIndicator.transform.position = new UnityEngine.Vector3(playerRb.transform.position.x, playerRb.transform.position.y + 1.5f, playerRb.transform.position.z);//Track the powerup to the player's current position
+        powerupIndicator.transform.Rotate(0, 50 * (Time.deltaTime * 5), 0);//Spin the powerup on the Y axis.
         
     }
 
@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
 
         if(other.CompareTag("Powerup"))//If it's an object with the tag 'Powerup'
         {
+            Debug.Log("Collected powerup");
             hasPowerup = true;//Set bool hasPowerup to true
             Destroy(other.gameObject);//Destroy the powerup object
             powerupIndicator.gameObject.SetActive(true);
