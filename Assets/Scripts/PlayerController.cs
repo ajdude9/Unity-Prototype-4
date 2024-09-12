@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
             hasPowerup = true;//Set bool hasPowerup to true
             Destroy(other.gameObject);//Destroy the powerup object
             powerupIndicator.gameObject.SetActive(true);
+            StopCoroutine(PowerupCountdownRoutine());//Stop the powerup countdown if it's already active
             StartCoroutine(PowerupCountdownRoutine());//Run the function 'PowerupCountdownRoutine' at the same time as this one
         }//End of If statement        
     }//End of onTriggerEnter

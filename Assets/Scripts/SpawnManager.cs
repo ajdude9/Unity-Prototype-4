@@ -38,7 +38,11 @@ public class SpawnManager : MonoBehaviour
         }
         else
         {
-            Destroy(locatePowerup());
+            GameObject[] locatedPowerups = locatePowerup();
+            for(int i = 0; i < locatedPowerups.Length; i++)
+            {
+                Destroy(locatedPowerups[i]);
+            }
             StartCoroutine(powerupSpawnDelayRoutine(UnityEngine.Random.Range(3, spawnDelay)));
         }
         for(int i = 0; i < enemiesToSpawn; i++)
@@ -51,18 +55,18 @@ public class SpawnManager : MonoBehaviour
         switch(spawnType)
         {
             case "enemy"://If the input is 'enemy', spawn an enemy
-            Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
+            Instantiate(enemyPrefab, GenerateSpawnPosition(0), enemyPrefab.transform.rotation);
             break;
             case "powerup"://If the input is 'powerup', spawn a powerup
-            Instantiate(powerupPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
+            Instantiate(powerupPrefab, GenerateSpawnPosition(-0.6f), enemyPrefab.transform.rotation);
             break;
         }
     }
-    private Vector3 GenerateSpawnPosition()
+    private Vector3 GenerateSpawnPosition(float spawnPosY)
     {
         float spawnPosX = UnityEngine.Random.Range(-spawnRange, spawnRange);
         float spawnPosZ = UnityEngine.Random.Range(-spawnRange, spawnRange);
-        Vector3 randomPos = new Vector3(spawnPosX, -0.5f, spawnPosZ);
+        Vector3 randomPos = new Vector3(spawnPosX, spawnPosY, spawnPosZ);
         return randomPos;
     }
     int FindEnemies()//Find how many enemies are in the scene
@@ -76,10 +80,10 @@ public class SpawnManager : MonoBehaviour
         int powerupCount = count.Length;//Create an integer with the length of objects found in the array
         return powerupCount;
     }
-    GameObject locatePowerup()
+    GameObject[] locatePowerup()
     {
         GameObject[] foundPowerup = GameObject.FindGameObjectsWithTag("Powerup");
-        return foundPowerup[0];
+        return foundPowerup;
     }
     IEnumerator powerupSpawnDelayRoutine(int waitTime)
     {
