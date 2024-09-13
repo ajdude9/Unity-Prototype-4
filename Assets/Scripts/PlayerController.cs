@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Collided with " + collision.gameObject.name + " with hasPowerup set to " + hasPowerup);//Log the player's collision
             Rigidbody enemyRb = collision.gameObject.GetComponent<Rigidbody>();
-            UnityEngine.Vector3 awayFromPlayer = (collision.gameObject.transform.position - transform.position);
+            UnityEngine.Vector3 awayFromPlayer = collision.gameObject.transform.position - transform.position;
             enemyRb.AddForce(awayFromPlayer * powerupStrength, ForceMode.Impulse);
         }
     }
