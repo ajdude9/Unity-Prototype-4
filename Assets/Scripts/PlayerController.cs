@@ -34,9 +34,9 @@ public class PlayerController : MonoBehaviour
     void playerMovementController()
     {
         float forwardInput = Input.GetAxis("Vertical");
-        playerRb.AddForce(focalPoint.transform.forward * speed * forwardInput);
+        playerRb.AddForce(focalPoint.transform.forward * (speed * 250) * forwardInput * Time.deltaTime);
         float horizontalInput = Input.GetAxis("RightLeft");
-        playerRb.AddForce(focalPoint.transform.right * speed * horizontalInput); 
+        playerRb.AddForce(focalPoint.transform.right * (speed * 250) * horizontalInput * Time.deltaTime); 
     }
 
     void OnTriggerEnter(Collider other)//Upon touching a boxCollider

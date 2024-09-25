@@ -24,7 +24,7 @@ public class EnemyController : MonoBehaviour
     void EnemyMovementController()
     {
         Vector3 lookDirection = (player.transform.position - transform.position).normalized;
-        enemyRb.AddForce(lookDirection * speed);        
+        enemyRb.AddForce(lookDirection * (speed * 250) * Time.deltaTime);        
     }
 
     bool CheckOOB()
